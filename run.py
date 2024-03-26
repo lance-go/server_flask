@@ -1,4 +1,4 @@
-from flask_server import app
+from flask_server.flask_server import app
 
 # main driver function
 if __name__ == '__main__':
