@@ -1,0 +1,51 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/release.yaml'
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/release.yaml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+
+      - name: Install requirement
+        run: pip install -r requirements.txt
+
+      - name: run main
+        run: gunicorn run:app
+      
+      - name: Configure Environment
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          PUBLISHABLE_KEY: ${{ secrets.PUBLISHABLE_KEY }}
+          ENDPOINT_SECRET: ${{ secrets.ENDPOINT_SECRET }}
+          ENV_PATH: "./.env"
+        run: |
+          echo "SECRET_KEY=$SECRET_KEY" >>  ${{env.ENV_PATH}}
+          echo "PUBLISHABLE_KEY=$PUBLISHABLE_KEY" >>  ${{env.ENV_PATH}}
+          echo "ENDPOINT_SECRET=$ENDPOINT_SECRET" >>  ${{env.ENV_PATH}}
+
+      - name: Create Firebase file
+        env:
+          KEY_JSON: ${{ secrets.KEY_JSON }}
+          PLAY_PATH: "./key.json"
+        run : |
+          echo "$KEY_JSON" | base64 -d > ${{env.PLAY_PATH}}
+
+        
