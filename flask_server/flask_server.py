@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import stripe
-from constant_vars import endpoint_secret, db, stripe_keys
+from flask_server.constant_vars import endpoint_secret, stripe_keys
 
 app = Flask(__name__)
 

@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import firebase_admin
 from firebase_admin import credentials, firestore
-import stripe
 import os
 
 load_dotenv()
