@@ -11,8 +11,8 @@ firebase_admin.initialize_app(cred)
 db=firestore.client()
 
 stripe_keys = {
-    "secret_key": os.getenv("SECRET_KEY"),
-    "publishable_key": os.getenv("PUBLISHABLE_KEY"),
+    "secret_key": os.environ.get('SECRET_KEY'),
+    "publishable_key": os.environ.get('PUBLISHABLE_KEY'),
 }
 
-endpoint_secret = os.getenv("ENDPOINT_SECRET")
+endpoint_secret = os.environ.get('ENDPOINT_SECRET')
