@@ -9,6 +9,7 @@ stripe.api_key = stripe_keys["secret_key"]
 @app.route("/stripe-checkout", methods=["POST"])
 def stripe_webhook():
     payload = request.get_data(as_text=True)
+    print(payload)
     id = request.args.get('id')
     print(id)
     sig_header = request.headers.get("Stripe-Signature")
@@ -26,7 +27,7 @@ def stripe_webhook():
         return "Invalid signature", 400
 
     # Handle the payment_intent.succeeded event
-    if event["type"] == "payment_intent.succeeded":
+    if event["type"] == "charge.succeeded":
         print("Payment was successful.")
         # TODO: run some custom code here
 
