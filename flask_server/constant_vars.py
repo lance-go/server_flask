@@ -5,7 +5,7 @@ import os
 
 load_dotenv()
 
-cred = credentials.Certificate("key.json")
+cred = credentials.Certificate("/etc/secrets/key.json")
 firebase_admin.initialize_app(cred)
 
 db=firestore.client()
