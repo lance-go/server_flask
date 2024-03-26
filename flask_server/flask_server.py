@@ -31,7 +31,3 @@ def stripe_webhook():
         # TODO: run some custom code here
 
     return "Success", 200
-
-# main driver function
-if __name__ == '__main__':
-	app.run()
